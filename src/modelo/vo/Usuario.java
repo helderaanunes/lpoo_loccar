@@ -1,8 +1,21 @@
 package modelo.vo;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Usuario")
 public class Usuario {
+    @Id
     private int id;
-    private String nome,login,senha;
+    @Column(name="nome")
+    private String nome;
+    @Column
+    private String login;
+    @Column
+    private String senha;
 
     public int getId() {
         return id;
