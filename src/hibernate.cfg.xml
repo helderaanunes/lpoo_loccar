@@ -45,5 +45,6 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/locadora_carros</property>
     <property name="hibernate.connection.username">root</property>
+    <mapping class="modelo.vo.Usuario"/>
   </session-factory>
 </hibernate-configuration>

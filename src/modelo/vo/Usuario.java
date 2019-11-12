@@ -2,6 +2,8 @@ package modelo.vo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,7 +11,8 @@ import javax.persistence.Table;
 @Table(name = "Usuario")
 public class Usuario {
     @Id
-    private int id;
+    @GeneratedValue (strategy = GenerationType.IDENTITY )
+    private Integer id;
     @Column(name="nome")
     private String nome;
     @Column
@@ -17,11 +20,7 @@ public class Usuario {
     @Column
     private String senha;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,6 +51,10 @@ public class Usuario {
     @Override
     public String toString() {
         return nome;
+    }
+
+    public Integer getId() {
+        return id;
     }
     
 }

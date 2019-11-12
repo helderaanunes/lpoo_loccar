@@ -5,17 +5,29 @@
  */
 package locadoracarros;
 
-/**
- *
- * @author paula
- */
+import modelo.dao.HibernateDAO;
+import modelo.dao.NewHibernateUtil;
+import modelo.vo.Usuario;
+import org.hibernate.Session;
+
+
 public class LocadoraCarros {
 
-    /**
-     * @param args the command line arguments
-     */
+ 
     public static void main(String[] args) {
-        // TODO code application logic here
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        HibernateDAO<Usuario> dao =new HibernateDAO<Usuario>(Usuario.class,sessao);
+        Usuario usu = new Usuario();
+        usu.setLogin("Monyque");
+        usu.setNome("Monyque Lima");
+        usu.setSenha("Senha123");
+        System.out.println("tentando salvar...");
+        dao.save(usu);
+        sessao.close();
+        System.out.println("salvando...");
     }
     
 }
+
+
+
