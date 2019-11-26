@@ -107,6 +107,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jif.setSize(400, 300);
         jif.setVisible(true);
         jif.add(painel);
+        jif.setClosable(true);
         desktop.add(jif);
         
     }//GEN-LAST:event_marcaItemActionPerformed

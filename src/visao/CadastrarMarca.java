@@ -5,6 +5,11 @@
  */
 package visao;
 
+import modelo.dao.HibernateDAO;
+import modelo.dao.NewHibernateUtil;
+import modelo.vo.Marca;
+import org.hibernate.Session;
+
 /**
  *
  * @author paula
@@ -39,6 +44,11 @@ public class CadastrarMarca extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Salvar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setText("Limpar");
@@ -74,6 +84,17 @@ public class CadastrarMarca extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Marca marca = new Marca();
+        marca.setDescricao(descricao.getText());
+        Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+        HibernateDAO<Marca> dao = new HibernateDAO<Marca>(Marca.class,sessao);
+        System.out.println("salvando...");
+        dao.save(marca);
+        System.out.println("fechando...");
+        sessao.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
