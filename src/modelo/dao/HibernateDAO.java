@@ -87,7 +87,7 @@ public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
         Query query = session.createSQLQuery(sql).addEntity(classe);
         if (parametros != null) {
             for (int i = 0; i < parametros.length; i++) {
-                query.setParameter(parametros[i], valores[i]);
+                query.setString(i, valores[i]);
             }
         }
         return query.list();
@@ -98,7 +98,7 @@ public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
         Query query = session.createSQLQuery(sql).addEntity(classe);
         if (parametros != null) {
             for (int i = 0; i < parametros.length; i++) {
-                query.setParameter(parametros[i], valores[i]);
+                 query.setString(i, valores[i]);
             }
         }
         query.executeUpdate();

@@ -5,29 +5,27 @@
  */
 package locadoracarros;
 
+import java.util.ArrayList;
 import modelo.dao.HibernateDAO;
 import modelo.dao.NewHibernateUtil;
+import modelo.vo.Marca;
 import modelo.vo.Usuario;
 import org.hibernate.Session;
 
-
 public class LocadoraCarros {
 
- 
     public static void main(String[] args) {
+        ArrayList<Marca> marcas = new ArrayList<Marca>();
         Session sessao = NewHibernateUtil.getSessionFactory().openSession();
-        HibernateDAO<Usuario> dao =new HibernateDAO<Usuario>(Usuario.class,sessao);
-        Usuario usu = new Usuario();
-        usu.setLogin("Monyque");
-        usu.setNome("Monyque Lima");
-        usu.setSenha("Senha123");
-        System.out.println("tentando salvar...");
-        dao.save(usu);
-        sessao.close();
-        System.out.println("salvando...");
+        HibernateDAO<Marca> dao = new HibernateDAO<Marca>(Marca.class, sessao);
+        String sql = "select * from Marca where descricao like ?";
+        String[] atributos = new String[]{"descricao"};
+        String[] valores = new String[]{""+"%"};
+        marcas = (ArrayList<Marca>) dao.getListBySQL(sql, atributos, valores);
+        for (Marca m : marcas) {
+            System.out.println(m);
+
+        }
     }
-    
+
 }
-
-
-
