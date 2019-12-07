@@ -6,6 +6,7 @@
 package visao;
 
 import java.util.ArrayList;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.dao.HibernateDAO;
@@ -24,9 +25,11 @@ public class ListarMarca extends javax.swing.JPanel {
      */
     ArrayList<Marca> marcas = new ArrayList<Marca>();
 
-    public ListarMarca() {
+    private TelaInicial telaInicial;
+    public ListarMarca(TelaInicial telaInicial) {
         initComponents();
         carregarTabela();
+        this.telaInicial= telaInicial;
     }
 
     private void carregarTabela() {
@@ -110,6 +113,11 @@ public class ListarMarca extends javax.swing.JPanel {
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/edit.png"))); // NOI18N
         jButton2.setText("Editar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -183,6 +191,30 @@ public class ListarMarca extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Erro! nenhuma celula selecionada.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if (jTable1.getSelectedRow() >= 0) {
+            // pegar id de quem queremos remover...
+            DefaultTableModel tabela = ((DefaultTableModel) jTable1.getModel());
+            // pegar valor na linha X e coluna Y
+            int id = Integer.parseInt("" + tabela.getValueAt(jTable1.getSelectedRow(), 0));
+            //criar o DAO
+            Session sessao = NewHibernateUtil.getSessionFactory().openSession();
+            HibernateDAO<Marca> dao = new HibernateDAO<Marca>(Marca.class, sessao);
+            //utilizando o dao para pegar a marca que contenha o id especifico
+            Marca marca = dao.getEntity(id);
+
+            JInternalFrame jif = new JInternalFrame("Editar Marca");
+            EditarMarca painel = new EditarMarca(marca,telaInicial);
+            jif.setSize(400, 300);
+            jif.setVisible(true);
+            jif.add(painel);
+            jif.setClosable(true);
+            this.telaInicial.getDesktop().add(jif);
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro! nenhuma celula selecionada.");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

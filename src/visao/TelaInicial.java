@@ -5,6 +5,7 @@
  */
 package visao;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
 /**
@@ -79,6 +80,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem4.setText("Modelo");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
@@ -125,13 +131,31 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         JInternalFrame jif = new JInternalFrame("Listar Marca");
-        ListarMarca painel = new ListarMarca();
+        ListarMarca painel = new ListarMarca(this);
         jif.setSize(700, 600);
         jif.setVisible(true);
         jif.add(painel);
         jif.setClosable(true);
         desktop.add(jif);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        JInternalFrame jif = new JInternalFrame("Cadastrar Modelo");
+        CadastrarModelo painel = new CadastrarModelo();
+        jif.setSize(700, 600);
+        jif.setVisible(true);
+        jif.add(painel);
+        jif.setClosable(true);
+        desktop.add(jif);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    public JDesktopPane getDesktop() {
+        return desktop;
+    }
+
+    public void setDesktop(JDesktopPane desktop) {
+        this.desktop = desktop;
+    }
 
     /**
      * @param args the command line arguments

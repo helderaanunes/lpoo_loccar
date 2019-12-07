@@ -49,5 +49,6 @@ Contributor(s):
     <property name="hibernate.connection.autocommit">true</property>
     <mapping class="modelo.vo.Usuario"/>
     <mapping class="modelo.vo.Marca"/>
+    <mapping class="modelo.vo.Modelo"/>
   </session-factory>
 </hibernate-configuration>

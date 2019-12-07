@@ -7,16 +7,19 @@ package modelo.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import modelo.vo.Marca;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author paula
  */
-public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
-      private static final long serialVersionUID = 1L;
+public class HibernateDAO<T> implements InterfaceDAO<T>, Serializable {
+
+    private static final long serialVersionUID = 1L;
     private Class<T> classe;
     private Session session;
 
@@ -26,16 +29,18 @@ public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
         this.session = session;
     }
 
-
-
     @Override
     public void save(T entity) {
         session.save(entity);
     }
-    
+
     @Override
     public void update(T entity) {
-        session.update(entity);
+        Transaction t = session.beginTransaction();
+        session.merge(entity);
+        session.flush();
+        t.commit();
+       
     }
 
     @Override
@@ -77,7 +82,7 @@ public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
     public T getEntityBySQL(String sql, String[] parametros, String[] valores) {
         Query query = session.createSQLQuery(sql).addEntity(classe);
         for (int i = 0; i < parametros.length; i++) {
-            query.setParameter(parametros[i], valores[i]);
+             query.setString(i, valores[i]);
         }
         return (T) query.uniqueResult();
     }
@@ -92,13 +97,13 @@ public class HibernateDAO<T>  implements InterfaceDAO<T>, Serializable{
         }
         return query.list();
     }
-    
+
     @Override
     public void getDeleteBySQL(String sql, String[] parametros, String[] valores) {
         Query query = session.createSQLQuery(sql).addEntity(classe);
         if (parametros != null) {
             for (int i = 0; i < parametros.length; i++) {
-                 query.setString(i, valores[i]);
+                query.setString(i, valores[i]);
             }
         }
         query.executeUpdate();
